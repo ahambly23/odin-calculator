@@ -22,97 +22,144 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 let result = '';
+let shouldResetDisplay = false;
 
-const addSum = (a, b) => {
-    return a + b;
-}
-
-const subtractSum = (a, b) => {
-    return a - b;
-}
-
-const multiplySum = (a, b) => {
-    return a * b;
-}
-
-const divideSum = (a, b) => {
-    if (b === 0) {
-        return display.innerText = "Error";
-    } else {
-        return a / b;
-    }
-}
+const addSum = (a, b) => a + b;
+const subtractSum = (a, b) => a - b;
+const multiplySum = (a, b) => a * b;
+const divideSum = (a, b) => b === 0 ? "Error" : a / b;
 
 const operate = (operator, num1, num2) => {
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
 
-    if (operator === '+') {
-        return addSum(num1, num2);        
-    } else if (operator === '-') {
-        return subtractSum(num1, num2);
-    } else if (operator === '*') {
-        return multiplySum(num1, num2);
-    } else if (operator === '/') {
-        return divideSum(num1, num2);
-    }
+    if (operator === '+') return addSum(num1, num2);
+    if (operator === '-') return subtractSum(num1, num2);
+    if (operator === '*') return multiplySum(num1, num2);
+    if (operator === '/') return divideSum(num1, num2);
 }
 
 one.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "1";
 })
 two.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "2";
 })
 three.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "3";
 })
 four.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "4";
 })
 five.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "5";
 })
 six.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "6";
 })
 seven.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "7";
 })
 eight.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "8";
 })
 nine.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "9";
 })
 zero.addEventListener("click", () => {
+    if (shouldResetDisplay) {
+        display.innerText = "";
+        shouldResetDisplay = false;
+    }
     display.innerText += "0";
 })
 backspace.addEventListener("click", () => {
     display.innerText = display.innerText.slice(0, -1);
 })
 
-// If an operator is clicked whilst firstNumber is already full, assign to secondNumber
-
 add.addEventListener("click", () => {
-    firstNumber = display.innerText;
+    if (firstNumber === '') {
+        firstNumber = display.innerText;
+    } else if (operator) {
+        secondNumber = display.innerText;
+        result = operate(operator, firstNumber, secondNumber);
+        display.innerText = result;
+        firstNumber = result;
+    }
     operator = "+";
-    display.innerText = "";
-})
+    shouldResetDisplay = true;
+});
 subtract.addEventListener("click", () => {
-    firstNumber = display.innerText;
+    if (firstNumber === '') {
+        firstNumber = display.innerText;
+    } else if (operator) {
+        secondNumber = display.innerText;
+        result = operate(operator, firstNumber, secondNumber);
+        display.innerText = result;
+        firstNumber = result;
+    }
     operator = "-";
-    display.innerText = "";
+    shouldResetDisplay = true;
 })
 multiply.addEventListener("click", () => {
-    firstNumber = display.innerText;
+    if (firstNumber === '') {
+        firstNumber = display.innerText;
+    } else if (operator) {
+        secondNumber = display.innerText;
+        result = operate(operator, firstNumber, secondNumber);
+        display.innerText = result;
+        firstNumber = result;
+    }
     operator = "*";
-    display.innerText = "";
+    shouldResetDisplay = true;
 })
 divide.addEventListener("click", () => {
-    firstNumber = display.innerText;
+    if (firstNumber === '') {
+        firstNumber = display.innerText;
+    } else if (operator) {
+        secondNumber = display.innerText;
+        result = operate(operator, firstNumber, secondNumber);
+        display.innerText = result;
+        firstNumber = result;
+    }
     operator = "/";
-    display.innerText = "";
+    shouldResetDisplay = true;
 })
 equals.addEventListener("click", () => {
     secondNumber = display.innerText;
@@ -125,5 +172,3 @@ clear.addEventListener("click", () => {
     secondNumber = "";
     operator = "";
 })
-
-// when a user clicks a number, it should be added to an empty array, then join the array into a string and do the calculations
