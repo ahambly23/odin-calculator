@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#calculator {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    margin: 0 auto;
+}
+
+#calculator div {
+    flex: 1 1 25%; 
+    padding: 20px;
+    border: 1px solid #000;
+    text-align: center;
+    font-size: 24px;
+}
+
+#display {
+    flex: 1 1 100%;
+    padding: 40px;
+    font-size: 32px;
+    background-color: #eee;
+    text-align: right;
+    border: 1px solid #000;
+    min-width: 400px;
+    min-height: 70px;
+}
