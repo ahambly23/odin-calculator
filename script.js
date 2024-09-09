@@ -39,81 +39,30 @@ const operate = (operator, num1, num2) => {
     if (operator === '/') return divideSum(num1, num2);
 }
 
-one.addEventListener("click", () => {
+const handleNumber = (number) => {
     if (shouldResetDisplay) {
         display.innerText = "";
         shouldResetDisplay = false;
     }
-    display.innerText += "1";
-})
-two.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "2";
-})
-three.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "3";
-})
-four.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "4";
-})
-five.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "5";
-})
-six.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "6";
-})
-seven.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "7";
-})
-eight.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "8";
-})
-nine.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "9";
-})
-zero.addEventListener("click", () => {
-    if (shouldResetDisplay) {
-        display.innerText = "";
-        shouldResetDisplay = false;
-    }
-    display.innerText += "0";
-})
+    display.innerText += number;
+}
+
+one.addEventListener("click", () => handleNumber("1"));
+two.addEventListener("click", () => handleNumber("2"));
+three.addEventListener("click", () => handleNumber("3"));
+four.addEventListener("click", () => handleNumber("4"));
+five.addEventListener("click", () => handleNumber("5"));
+six.addEventListener("click", () => handleNumber("6"));
+seven.addEventListener("click", () => handleNumber("7"));
+eight.addEventListener("click", () => handleNumber("8"));
+nine.addEventListener("click", () => handleNumber("9"));
+zero.addEventListener("click", () => handleNumber("0"));
+
 backspace.addEventListener("click", () => {
     display.innerText = display.innerText.slice(0, -1);
 })
 
-add.addEventListener("click", () => {
+const handleOperator = (op) => {
     if (firstNumber === '') {
         firstNumber = display.innerText;
     } else if (operator) {
@@ -122,53 +71,29 @@ add.addEventListener("click", () => {
         display.innerText = result;
         firstNumber = result;
     }
-    operator = "+";
+    operator = op;
     shouldResetDisplay = true;
-});
-subtract.addEventListener("click", () => {
-    if (firstNumber === '') {
-        firstNumber = display.innerText;
-    } else if (operator) {
-        secondNumber = display.innerText;
-        result = operate(operator, firstNumber, secondNumber);
-        display.innerText = result;
-        firstNumber = result;
-    }
-    operator = "-";
-    shouldResetDisplay = true;
-})
-multiply.addEventListener("click", () => {
-    if (firstNumber === '') {
-        firstNumber = display.innerText;
-    } else if (operator) {
-        secondNumber = display.innerText;
-        result = operate(operator, firstNumber, secondNumber);
-        display.innerText = result;
-        firstNumber = result;
-    }
-    operator = "*";
-    shouldResetDisplay = true;
-})
-divide.addEventListener("click", () => {
-    if (firstNumber === '') {
-        firstNumber = display.innerText;
-    } else if (operator) {
-        secondNumber = display.innerText;
-        result = operate(operator, firstNumber, secondNumber);
-        display.innerText = result;
-        firstNumber = result;
-    }
-    operator = "/";
-    shouldResetDisplay = true;
-})
+}
+
+add.addEventListener("click", () => handleOperator("+"));
+subtract.addEventListener("click", () => handleOperator("-"));
+multiply.addEventListener("click", () => handleOperator("*"));
+divide.addEventListener("click", () => handleOperator("/"));
+
 equals.addEventListener("click", () => {
     secondNumber = display.innerText;
     result = operate(operator, firstNumber, secondNumber);
     display.innerText = result;
 })
+
 clear.addEventListener("click", () => {
     display.innerText = "";
     firstNumber = "";
     secondNumber = "";
     operator = "";
 })
+
+// Add decimal point event
+    // Loop through display.innerText
+        // IF display.innerText[x] === "." disable the button
+        // ELSE display.innerText += "."
