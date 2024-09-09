@@ -8,21 +8,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 100px 0px;
+    margin: 80px 0px;
+    background: black;
 }
 
 #calculator {
     display: flex;
     flex-wrap: wrap;
     width: 400px;
+    gap: 4px;
 }
 
 #calculator button {
-    flex: 1 1 25%; 
+    flex: 1 1 calc(25% - 4px); 
     padding: 20px;
-    border: 1px solid #000;
+    border: none;
     text-align: center;
     font-size: 24px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 #display {
@@ -34,4 +38,38 @@ body {
     border: 1px solid #000;
     min-width: 400px;
     min-height: 120px;
+    font-family: Orbitron, sans-serif;
+    margin-bottom: 10px;
+    color: white;
+    background: black;
+}
+
+.operator {
+    background-color: orange;
+    color: white;
+}
+
+.operator:active {
+    background-color: rgb(255, 207, 119);
+    color: white;
+}
+
+.number {
+    background-color: rgb(74, 74, 74);
+    color: white;
+}
+
+.number:active {
+    background-color: rgb(148, 148, 148);
+    color: white;
+}
+
+.other {
+    background-color: gray;
+    color: black;
+}
+
+.other:active {
+    background-color: rgb(179, 179, 179);
+    color: black;
 }

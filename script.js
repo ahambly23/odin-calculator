@@ -23,28 +23,53 @@ let secondNumber = '';
 let operator = '';
 let result = '';
 let shouldResetDisplay = false;
+let shouldClearDisplay = false;
+
+display.innerText = "0";
 
 const addSum = (a, b) => a + b;
 const subtractSum = (a, b) => a - b;
 const multiplySum = (a, b) => a * b;
 const divideSum = (a, b) => b === 0 ? "Error" : a / b;
 
+const roundToMaxLength = (num, maxLength) => {
+    let numStr = num.toString();
+    if (numStr.length <= maxLength) {
+        return numStr;
+    }
+    if (numStr.includes('.')) {
+        const integerPartLength = numStr.split('.')[0].length;
+        const maxDecimalPlaces = maxLength - integerPartLength - 1;
+        num = parseFloat(num).toFixed(maxDecimalPlaces);
+    }
+    return num.toString().slice(0, maxLength);
+}
+
 const operate = (operator, num1, num2) => {
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
 
-    if (operator === '+') return addSum(num1, num2);
-    if (operator === '-') return subtractSum(num1, num2);
-    if (operator === '*') return multiplySum(num1, num2);
-    if (operator === '/') return divideSum(num1, num2);
+    if (operator === '+') result = addSum(num1, num2);
+    if (operator === '-') result = subtractSum(num1, num2);
+    if (operator === '*') result = multiplySum(num1, num2);
+    if (operator === '/') result = divideSum(num1, num2);
+
+    result = roundToMaxLength(result, 13);
+    return result;
 }
 
 const handleNumber = (number) => {
-    if (shouldResetDisplay) {
+    if (shouldResetDisplay || shouldClearDisplay) {
         display.innerText = "";
         shouldResetDisplay = false;
+        shouldClearDisplay = false;
     }
-    display.innerText += number;
+    if (display.innerText === "0") {
+        display.innerText = "";
+    }
+    if (display.innerText.length < 13) {
+        display.innerText += number;
+    }
 }
 
 one.addEventListener("click", () => handleNumber("1"));
@@ -60,7 +85,25 @@ zero.addEventListener("click", () => handleNumber("0"));
 
 backspace.addEventListener("click", () => {
     display.innerText = display.innerText.slice(0, -1);
+    if (display.innerText === "") {
+        display.innerText = "0";
+    }
+    if (display.innerText === result.toString()) {
+        display.innerText = "0";
+        firstNumber = "";
+        secondNumber = "";
+        operator = "";
+        result = "";
+        shouldClearDisplay = false;
+        shouldResetDisplay = false;
+    }
 })
+
+decimal.addEventListener("click", () => {
+    if (!display.innerText.includes(".")) {
+        display.innerText += ".";
+    }
+});
 
 const handleOperator = (op) => {
     if (firstNumber === '') {
@@ -81,19 +124,30 @@ multiply.addEventListener("click", () => handleOperator("*"));
 divide.addEventListener("click", () => handleOperator("/"));
 
 equals.addEventListener("click", () => {
-    secondNumber = display.innerText;
-    result = operate(operator, firstNumber, secondNumber);
-    display.innerText = result;
-})
+    if (firstNumber && operator) {
+        secondNumber = display.innerText;
+        result = operate(operator, firstNumber, secondNumber);
+        display.innerText = result;
+        firstNumber = result;
+        operator = '';
+        shouldClearDisplay = true;
+    } else {
+        display.innerText = "0";
+        firstNumber = "";
+        secondNumber = "";
+        operator = "";
+        result = "";
+        shouldClearDisplay = false;
+        shouldResetDisplay = false;
+    }
+});
 
 clear.addEventListener("click", () => {
-    display.innerText = "";
+    display.innerText = "0";
     firstNumber = "";
     secondNumber = "";
     operator = "";
+    result = "";
+    shouldClearDisplay = false;
+    shouldResetDisplay = false;
 })
-
-// Add decimal point event
-    // Loop through display.innerText
-        // IF display.innerText[x] === "." disable the button
-        // ELSE display.innerText += "."
