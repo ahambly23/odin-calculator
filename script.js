@@ -27,6 +27,16 @@ let shouldClearDisplay = false;
 
 display.innerText = "0";
 
+const clearDisplay = () => {
+    display.innerText = "0";
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    result = "";
+    shouldClearDisplay = false;
+    shouldResetDisplay = false;
+}
+
 const addSum = (a, b) => a + b;
 const subtractSum = (a, b) => a - b;
 const multiplySum = (a, b) => a * b;
@@ -72,39 +82,6 @@ const handleNumber = (number) => {
     }
 }
 
-one.addEventListener("click", () => handleNumber("1"));
-two.addEventListener("click", () => handleNumber("2"));
-three.addEventListener("click", () => handleNumber("3"));
-four.addEventListener("click", () => handleNumber("4"));
-five.addEventListener("click", () => handleNumber("5"));
-six.addEventListener("click", () => handleNumber("6"));
-seven.addEventListener("click", () => handleNumber("7"));
-eight.addEventListener("click", () => handleNumber("8"));
-nine.addEventListener("click", () => handleNumber("9"));
-zero.addEventListener("click", () => handleNumber("0"));
-
-backspace.addEventListener("click", () => {
-    display.innerText = display.innerText.slice(0, -1);
-    if (display.innerText === "") {
-        display.innerText = "0";
-    }
-    if (display.innerText === result.toString()) {
-        display.innerText = "0";
-        firstNumber = "";
-        secondNumber = "";
-        operator = "";
-        result = "";
-        shouldClearDisplay = false;
-        shouldResetDisplay = false;
-    }
-})
-
-decimal.addEventListener("click", () => {
-    if (!display.innerText.includes(".")) {
-        display.innerText += ".";
-    }
-});
-
 const handleOperator = (op) => {
     if (firstNumber === '') {
         firstNumber = display.innerText;
@@ -118,10 +95,38 @@ const handleOperator = (op) => {
     shouldResetDisplay = true;
 }
 
+one.addEventListener("click", () => handleNumber("1"));
+two.addEventListener("click", () => handleNumber("2"));
+three.addEventListener("click", () => handleNumber("3"));
+four.addEventListener("click", () => handleNumber("4"));
+five.addEventListener("click", () => handleNumber("5"));
+six.addEventListener("click", () => handleNumber("6"));
+seven.addEventListener("click", () => handleNumber("7"));
+eight.addEventListener("click", () => handleNumber("8"));
+nine.addEventListener("click", () => handleNumber("9"));
+zero.addEventListener("click", () => handleNumber("0"));
+
 add.addEventListener("click", () => handleOperator("+"));
 subtract.addEventListener("click", () => handleOperator("-"));
 multiply.addEventListener("click", () => handleOperator("*"));
 divide.addEventListener("click", () => handleOperator("/"));
+clear.addEventListener("click", clearDisplay)
+
+backspace.addEventListener("click", () => {
+    display.innerText = display.innerText.slice(0, -1);
+    if (display.innerText === "") {
+        display.innerText = "0";
+    }
+    if (display.innerText === result.toString()) {
+        clearDisplay();
+    }
+})
+
+decimal.addEventListener("click", () => {
+    if (!display.innerText.includes(".")) {
+        display.innerText += ".";
+    }
+});
 
 equals.addEventListener("click", () => {
     if (firstNumber && operator) {
@@ -132,22 +137,6 @@ equals.addEventListener("click", () => {
         operator = '';
         shouldClearDisplay = true;
     } else {
-        display.innerText = "0";
-        firstNumber = "";
-        secondNumber = "";
-        operator = "";
-        result = "";
-        shouldClearDisplay = false;
-        shouldResetDisplay = false;
+        clearDisplay();
     }
 });
-
-clear.addEventListener("click", () => {
-    display.innerText = "0";
-    firstNumber = "";
-    secondNumber = "";
-    operator = "";
-    result = "";
-    shouldClearDisplay = false;
-    shouldResetDisplay = false;
-})
